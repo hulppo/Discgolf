@@ -1,0 +1,18 @@
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal
+
+#_player:
+#    resource: "@LupoDiscgolf/Controller/PlayerController.php"
+#    type:     annotation
+#    prefix:   /player
+    
+LupoDiscgolf:
+    resource: "@LupoDiscgolf/Resources/config/routing.yml"
+    prefix:   /api
+    type: rest
+
+_home:
+    pattern:  /
+    defaults: { _controller: LupoDiscgolf:Home:index }

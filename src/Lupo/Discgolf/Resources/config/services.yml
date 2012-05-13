@@ -1,0 +1,21 @@
+#src/Lupo/Discgolf/Resources/config/services.yml
+parameters:
+    coursemanager.class:    Lupo\Discgolf\Course\CourseManager
+    playermanager.class:    Lupo\Discgolf\Player\PlayerManager
+    roundmanager.class:     Lupo\Discgolf\Round\RoundManager
+    usermanager.class:     Lupo\Discgolf\User\UserManager
+
+services:
+    coursemanager:
+        class:        %coursemanager.class%
+        arguments:    ["@doctrine.orm.entity_manager"]
+    playermanager:
+        class:        %playermanager.class%
+        arguments:    ["@doctrine.orm.entity_manager"]
+    roundmanager:
+        class:        %roundmanager.class%
+        arguments:    ["@doctrine.orm.entity_manager", @playermanager]
+    usermanager:
+        class:        %usermanager.class%
+        arguments:    ["@doctrine.orm.entity_manager"]
+        
