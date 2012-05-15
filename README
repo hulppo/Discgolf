@@ -1,0 +1,48 @@
+Discgolf software.
+
+This software was primarily created for parsing of scorecard mails from the Easy
+Scorecard android application.
+
+This software uses parts of the Symfony2 PHP framework. It also depends on the
+PEAR Mail_mimeDecode package for decoding of mails.
+
+INSTALLATION
+------------
+
+First get this software for example by cloning this GIT repository.
+You will also need GIT for fetching the symfony2 dependencies of this software.
+
+Then run the app/check.php file for checking that your PHP system has all the
+components required for symfony2 stack to work.
+
+Afterwards run bin/vendors, which will retrieve all the dependencies of this
+software.
+
+For using the PEAR Mail_mimeDecode package install PEAR and the Mail_mimeDecode
+PEAR package on your system and create a link or copy the contents of the PEAR
+PHP folder to vendor/mailMimeDecode/src.
+(On an ubuntu distribution the PEAR PHP folder is /usr/share/php)
+
+Currently this software has only been tested with a postgresql database. You
+can set-up the postgresql database by running the SQL inside
+src/Lupo/Discgolf/Resources/db/db_init.sql
+
+CONFIGURATION
+-------------
+You will need to create a new file app/config/parameters.ini. The
+parameters.ini.dist file can be used as base. Configure the database
+parameters.
+This can also be done by running in the browser the config.php file in the /web
+folder.
+
+RUNNING
+-------
+Parsing a single scorecard mail:
+Run app/console discgolf:parsemail <mailfilename>
+
+Parsing a Maildir unread mail folder.
+Run app/console discgolf:parsemaildir <folder>
+
+By pointing a web browser to the /web/ should see the Discgolf application.
+Current working routes are only the REST controllers, e.g.
+/app_dev.php/api/rounds and /app_dev.php/api/rounds.json.
