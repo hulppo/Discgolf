@@ -9,4 +9,8 @@
     database_user="discgolf_user"
     database_password="discgolf_pw"
     locale="en"
+    mailer_transport="smtp"
+    mailer_host="localhost"
+    mailer_user=""
+    mailer_password=""
     secret="ThisTokenIsNotSoSecretChangeIt"
