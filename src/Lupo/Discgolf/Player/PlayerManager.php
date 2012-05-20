@@ -56,12 +56,10 @@ class PlayerManager
             $ret = reset($players); // take the first one
         }
         if ($ret == null && $createNew) {
-            $ret = new Player();
-            $ret->setName($playerName);
+            $ret = new Player($playerName);
+	    $playerName = $ret->addAltName($playerName);
             $this->em->persist($ret);
-            $playerName = new PlayerName();
-            $playerName->setPlayer($ret);
-            $playerName->setAltName($playerName);
+	    $this->em->persist($playerName);
             $this->em->flush(); // when should this really be done?
         }
         return $ret;
