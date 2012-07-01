@@ -39,12 +39,10 @@ class CourseName
      */
     private $course;
 
-
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -64,7 +62,7 @@ class CourseName
     /**
      * Get altName
      *
-     * @return text 
+     * @return text
      */
     public function getAltName()
     {
@@ -84,7 +82,7 @@ class CourseName
     /**
      * Get course
      *
-     * @return Lupo\Discgolf\Entity\Course 
+     * @return Lupo\Discgolf\Entity\Course
      */
     public function getCourse()
     {

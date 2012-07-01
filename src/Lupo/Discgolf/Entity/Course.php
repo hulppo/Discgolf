@@ -54,6 +54,14 @@ class Course
     private $holes;
 
     /**
+     * @var ArrayCollection $altNames
+     * @ORM\OneToMany(targetEntity="CourseName", mappedBy="course")
+     *
+     * @Groups({"details"})
+     */
+    private $altNames;
+
+    /**
      * Constructs a new course.
      * @param string $courseName
      */
@@ -61,6 +69,7 @@ class Course
     {
         $this->name = $courseName;
         $this->holes = new ArrayCollection();
+        $this->altNames = new ArrayCollection();
     }
 
     /**
@@ -147,5 +156,18 @@ class Course
          }
          $this->holes[] = $hole;
          return $hole;
+     }
+
+     /**
+      * Creates a new alternative course name for this course.
+      * @param string $name
+      * @return \Lupo\Discgolf\Entity\CourseName
+      */
+     public function addAltName($name)
+     {
+     	$altName = new CourseName();
+     	$altName->setCourse($this);
+     	$altName->setAltName($name);
+     	return $altName;
      }
 }

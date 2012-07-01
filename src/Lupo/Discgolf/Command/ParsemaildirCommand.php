@@ -31,7 +31,7 @@ class ParsemaildirCommand extends ContainerAwareCommand
     {
         $maildir = $input->getArgument('maildir');
         if (! file_exists($maildir)) {
-            echo "ERROR: Non-existent maildir $maildir given.";
+        	$output->writeln("<error>Non-existent maildir $maildir given.</error>");
             return 1;
         }
         if (substr($maildir, -1, 1) != '/') {
@@ -40,11 +40,12 @@ class ParsemaildirCommand extends ContainerAwareCommand
         $newMaildir = $maildir . 'new/';
         $readMaildir = $maildir . 'cur/';
         if (! file_exists($newMaildir)) {
-            echo "ERROR: No new mail directory found $newMaildir.\n";
+        	$output->writeln("<error>No new mail directory found $newMaildir.</error>");
             return 2;
         }
         if (! file_exists($readMaildir)) {
-            echo "ERROR: No read mail directory found $readMaildir.\n";
+            $output->writeln("<error>No read mail directory found $readMaildir.</error>");
+            return 3;
         }
         $container = $this->getContainer();
         /* @var Lupo\Discgolf\Course\CourseManager $courseManager */

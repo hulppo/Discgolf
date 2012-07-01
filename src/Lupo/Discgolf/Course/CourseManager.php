@@ -35,9 +35,13 @@ class CourseManager
     public function searchCoursesWithName($name)
     {
         // check newest matches first
-        // TODO: Check all alternative names
-        $courses = $this->em->getRepository('Lupo\Discgolf\Entity\Course')
-            ->findBy(array('name' => $name), array('id' => 'DESC'));
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('c')->from('Lupo\Discgolf\Entity\Course', 'c');
+        $qb->join('c.altNames', 'cn');
+        $qb->where('cn.altName = :name');
+        $qb->orderBy('c.id', 'DESC');
+        $qb->setParameter('name', $name);
+        $courses = $qb->getQuery()->getResult();
         return $courses;
     }
 
@@ -74,7 +78,9 @@ class CourseManager
         }
         if ($ret == null && $createNew) {
             $course = new Course($parsedCourse->getCourseName());
+            $courseName = $course->addAltName($parsedCourse->getCourseName());
             $this->em->persist($course);
+            $this->em->persist($courseName);
             foreach ($parsedCourse->getHoles() as $holeNumber => $par) {
                 $par = $par == '' ? 0 : $par;
                 $hole = $course->addHole($holeNumber, $par);
