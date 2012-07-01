@@ -4,6 +4,8 @@ namespace Lupo\Discgolf\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use JMS\SerializerBundle\Annotation\Groups;
+
 /**
  * Lupo\Discgolf\Entity\CourseName
  *
@@ -26,6 +28,8 @@ class CourseName
      * @var text $altName
      *
      * @ORM\Column(name="alt_name", type="text", nullable=false)
+     *
+     * @Groups({"details"})
      */
     private $altName;
 
