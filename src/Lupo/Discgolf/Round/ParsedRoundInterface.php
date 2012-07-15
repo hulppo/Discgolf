@@ -27,6 +27,22 @@ interface ParsedRoundInterface
      * @return array
      */
     public function getRoundInformation();
+
+    /**
+     * Returns putt information for this round.
+     *
+     * @return array Player name indexes a result array with all holes
+     * we have putt information for.
+     */
+    public function getPutts();
+
+    /**
+     * Returns penalty information for this round.
+     *
+     * @return array Array with player name indexing an array with hole
+     * number indexing penalty amount.
+     */
+    public function getPenalty();
 }
 
 ?>

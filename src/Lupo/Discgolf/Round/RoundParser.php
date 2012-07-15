@@ -48,6 +48,18 @@ class RoundParser implements ParsedCourseInterface,
     private $holes = array();
 
     /**
+     * Array with player name indexing array of putt amounts per hole.
+     * @var array
+     */
+    private $putts = array();
+
+    /**
+     * Array with player name indexing array of penalty amount per hole.
+     * @var array
+     */
+    private $penalty = array();
+
+    /**
      * CSV data string.
      * @var string
      */
@@ -219,6 +231,10 @@ class RoundParser implements ParsedCourseInterface,
                     $this->holes[$holeNumber] = $columns[$columnNumber];
                 }
                 $this->knownPar = true;
+            } elseif (strpos($columns[0], 'PUTT') !== false) {
+            	$prevHeader = 'PUTT';
+            } elseif (strpos($columns[0], 'PENALTY') !== false) {
+            	$prevHeader = 'PENALTY';
             } elseif ($separator == 'td'
                 && in_array($prevHeader, array('HOLE', 'PAR'))
             ) { // player score row follows HOLE or PAR header row
@@ -233,6 +249,26 @@ class RoundParser implements ParsedCourseInterface,
                 }
                 $this->scores[$player] = $scores;
                 $ok = true; // found some player scores
+            } elseif ($separator == 'td' && $prevHeader == 'PUTT') {
+            	if (count($columns) < count($this->holes)) {
+            		continue; // we skip the row if we don't have enough columns
+            	}
+            	$player = trim($this->decodeAndToUtf8($columns[0]));
+            	$putts = array();
+            	foreach ($holeMap as $columnNumber => $holeNumber) {
+                    $putts[$holeNumber] = $columns[$columnNumber];
+                }
+                $this->putts[$player] = $putts;
+            } elseif ($separator == 'td' && $prevHeader == 'PENALTY') {
+            	if (count($columns) < count($this->holes)) {
+            		continue; // we skip the row if we don't have enough columns
+            	}
+            	$player = trim($this->decodeAndToUtf8($columns[0]));
+            	$penalties = array();
+            	foreach ($holeMap as $columnNumber => $holeNumber) {
+                    $penalties[$holeNumber] = $columns[$columnNumber];
+                }
+                $this->penalty[$player] = $penalties;
             } else {
                 $prevHeader = $columns[0];
             }
@@ -304,6 +340,28 @@ class RoundParser implements ParsedCourseInterface,
     public function getHoles()
     {
         return $this->holes;
+    }
+
+    /**
+     * Returns putt information for this round.
+     *
+     * @return array Player name indexes a result array with all holes
+     * we have putt information for.
+     */
+    public function getPutts()
+    {
+    	return $this->putts;
+    }
+
+    /**
+     * Returns penalty information for this round.
+     *
+     * @return array Array with player name indexing an array with hole
+     * number indexing penalty amount.
+     */
+    public function getPenalty()
+    {
+    	return $this->penalty;
     }
 
     /**

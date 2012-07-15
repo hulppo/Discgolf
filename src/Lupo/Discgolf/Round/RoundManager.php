@@ -80,7 +80,14 @@ class RoundManager
         foreach ($course->getHoles() as $hole) {
             $holes[$hole->getNumber()] = $hole;
         }
+        $putts = $parsedRound->getPutts();
+        $penalties = $parsedRound->getPenalty();
+
         foreach ($parsedRound->getScores() as $playerName => $scores) {
+        	$playerPutts = isset($putts[$playerName]) ? $putts[$playerName]
+        		: array();
+        	$playerPenalty = isset($penalties[$playerName])
+        		? $penalties[$playerName] : array();
             foreach ($scores as $holeNumber => $throws) {
                 if ($throws != '') {
                     $result = new Result();
@@ -88,6 +95,16 @@ class RoundManager
                     $result->setPlayer($players[$playerName]);
                     $result->setHole($holes[$holeNumber]);
                     $result->setThrows($throws);
+                    if (isset($playerPutts[$holeNumber])
+                        && $playerPutts[$holeNumber] != ''
+                    ) {
+                    	$result->setPutts($playerPutts[$holeNumber]);
+                    }
+                    if (isset($playerPenalty[$holeNumber])
+                        && $playerPenalty[$holeNumber] != ''
+                    ) {
+                    	$result->setOutOfBounds($playerPenalty[$holeNumber]);
+                    }
                     $this->em->persist($result);
                 }
             }
