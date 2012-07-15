@@ -38,6 +38,24 @@ class Result
     private $throws;
 
     /**
+     * @var integer $putts
+     *
+     * @ORM\Column(name="putts", type="integer", nullable=true)
+     *
+     * @Groups({"details"})
+     */
+    private $putts;
+
+    /**
+     * @var integer $outOfBounds
+     *
+     * @ORM\Column(name="out_of_bounds", type="integer", nullable=true)
+     *
+     * @Groups({"details"})
+     */
+    private $outOfBounds;
+
+    /**
      * @var Round
      *
      * @ORM\ManyToOne(targetEntity="Round")
@@ -102,6 +120,46 @@ class Result
     public function getThrows()
     {
         return $this->throws;
+    }
+
+    /**
+     * Set the amount of putts in this result.
+     *
+     * @param integer $putts
+     */
+    public function setPutts($putts)
+    {
+        $this->putts = $putts;
+    }
+
+    /**
+     * Get putts
+     *
+     * @return integer
+     */
+    public function getPutts()
+    {
+        return $this->putts;
+    }
+
+    /**
+     * Set amount of OB throws, i.e. out of bounds.
+     *
+     * @param integer $outOfBounds
+     */
+    public function setOutOfBounds($outOfBounds)
+    {
+        $this->outOfBounds = $outOfBounds;
+    }
+
+    /**
+     * Get amount of out of bounds throws.
+     *
+     * @return integer
+     */
+    public function getOutOfBounds()
+    {
+        return $this->outOfBounds;
     }
 
     /**

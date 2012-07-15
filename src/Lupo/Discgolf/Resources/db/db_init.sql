@@ -102,3 +102,10 @@ CREATE TABLE result (
     throws INTEGER,
     UNIQUE(round_id, hole_id, player_id)
 );
+
+/**
+ * Adding of OB and putt count to results.
+ */
+ALTER TABLE result ADD COLUMN putts INTEGER DEFAULT NULL;
+ALTER TABLE result ADD COLUMN out_of_bounds INTEGER DEFAULT NULL;
+
