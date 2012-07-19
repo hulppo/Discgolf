@@ -1,0 +1,161 @@
+body {
+	background-color: black;
+	font-family: 'Segoe UI', Arial, sans-serif;
+	font-size: 12px;
+	color: white;
+	/*background-image: url('../img/earth.jpg');
+	background-repeat:no-repeat;
+	background-attachment:fixed;
+	background-position:center;
+	background-size: 70%;
+	*/
+}
+
+h3.routelistHeader {
+	font-size: 11px;
+}
+
+.mainContainer{
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+header {
+
+}
+
+.testc {
+}
+
+#routeListing, #tabs {
+    
+}
+
+.footer, .header {
+	background-color: black;
+	color: white;
+	padding: 5px;
+	margin-top: 3px;
+	border-style: solid;
+	border-width: 1px 0px 1px 0px;
+	border-color: #eeeeee;
+}
+
+
+.highlight {
+	color: yellow;
+	font-weight: bold;
+}
+
+img.powered {
+	height: 20px;
+	border-right: 1px solid;
+	border-color: #eeeeee;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+
+
+ul.selectList {
+	list-style-type: none;
+}
+
+ul.selectList li {
+	padding-left: 25px;
+	height: 25px;
+	line-height: 25px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+ul.selectList li.selectedItem {
+	color: green;
+	background: url("../img/icons/noshadow/standart/ico/001_15.ico") no-repeat left center;
+}
+
+ul.selectList li.unselectedItem {
+	color: grey;
+	background: url("../img/icons/noshadow/standart/ico/001_17.ico") no-repeat left center;
+}
+
+
+.selectList li:hover {
+	background-color: #222222;
+}
+
+.roundGroupTable {
+	border-spacing: 5px;
+}
+
+.roundGroupTable TR TD {
+	cursor: pointer;
+	background-color: #444;
+	height: 25px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+
+
+span.label {
+	
+	font-weight: bold;
+}
+
+span.counter {
+	border: 1px solid white;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background-color: white;
+	color: black;
+	padding: 3px;
+}
+
+#powerTable TD {
+	width:200px;
+	text-align: center;
+}
+
+#powerTable TH:first-of-type {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#powerTable TR:hover {
+	background-color: #111111;
+	
+}
+
+#rollingLog {
+    height: 149px;
+    width: 960px;
+    overflow: hidden;
+    background-image: url('../img/banner.png');
+}
+
+DIV.logEntry SPAN {
+	//background-color: black;	
+}
+
+.logNormal {
+	color: white;
+		
+}
+
+.logError {
+	color: red;
+	background-color: black;
+}
+
+.logSuccess {
+	color: green;
+}
+
+
+TABLE.roundlist TR{
+	cursor: pointer;
+}
+
+

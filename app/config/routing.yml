@@ -8,11 +8,17 @@
 #    type:     annotation
 #    prefix:   /player
     
-LupoDiscgolf:
-    resource: "@LupoDiscgolf/Resources/config/routing.yml"
+LupoDiscgolfApi:
+    resource: "@LupoDiscgolf/Resources/config/routing_api.yml"
     prefix:   /api
     type: rest
 
 _home:
     pattern:  /
     defaults: { _controller: LupoDiscgolf:Home:index }
+    
+_app:
+    pattern: /fgolf_stats
+    defaults: { _controller: LupoDiscgolf:FgolfStats:index }
+    
+    
