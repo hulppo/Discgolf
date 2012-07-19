@@ -16,13 +16,18 @@
     array('@LupoDiscgolf/Resources/public/css/960.css',
           '@LupoDiscgolf/Resources/public/css/styles.css',
           '@LupoDiscgolf/Resources/public/lib/jqueryUI/css/ui-darkness/jquery-ui-1.8.18.custom.css'
-          ), array('cssrewrite')) as $url): ?>
+          )) as $url): ?>
     <link rel="stylesheet" href="<?php echo $view->escape($url) ?>" />
 <?php endforeach; ?>
 
 <?php foreach ($view['assetic']->javascripts(
     array('@LupoDiscgolf/Resources/public/js/misc/constants.js',
-          '@LupoDiscgolf/Resources/public/js/misc/utils.js',
+        )) as $url): ?>
+    <script src="<?php echo $view->escape($url) ?>"></script>
+<?php endforeach; ?>
+
+<?php foreach ($view['assetic']->javascripts(
+    array('@LupoDiscgolf/Resources/public/js/misc/utils.js',
           '@LupoDiscgolf/Resources/public/js/misc/UILogger.js',
           '@LupoDiscgolf/Resources/public/js/misc/Logger.js',
           '@LupoDiscgolf/Resources/public/js/misc/AjaxRunner.js',
