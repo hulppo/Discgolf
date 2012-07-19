@@ -1,0 +1,20 @@
+# src/Lupo/Discgolf/Resources/config/routing_api.yml
+players:
+    type:           rest
+    resource:       Lupo\Discgolf\Controller\PlayerController
+    name_prefix:    discgolf_players_
+    
+rounds:
+    type:           rest
+    resource:       Lupo\Discgolf\Controller\RoundController
+    name_prefix:    discgolf_rounds_
+    
+courses:
+    type:           rest
+    resource:       Lupo\Discgolf\Controller\CourseController
+    name_prefix:    discgolf_courses_
+    
+results:
+    type:           rest
+    resource:       Lupo\Discgolf\Controller\ResultController
+    name_prefix:    discgolf_results_
