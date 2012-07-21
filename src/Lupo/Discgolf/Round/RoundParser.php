@@ -90,7 +90,7 @@ class RoundParser implements ParsedCourseInterface,
     public function setCsvData($data, $charset = '')
     {
         if ($charset != '') { // convert the data
-            if ($charset = 'US-ASCII') {
+            if ($charset == 'US-ASCII') {
                 $charset = 'ISO-8859-1';
             }
             $this->csvData = iconv($charset, 'utf-8', $data);
@@ -107,7 +107,7 @@ class RoundParser implements ParsedCourseInterface,
     public function setHtmlData($data, $charset = '')
     {
         if ($charset != '') { // should we convert data here?
-            if ($charset = 'US-ASCII') {
+            if ($charset == 'US-ASCII') {
                 $charset = 'ISO-8859-1';
             }
             $this->charset = $charset;
