@@ -2,16 +2,6 @@
 <html>
     <head>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<?php foreach ($view['assetic']->javascripts(
-    array('@LupoDiscgolf/Resources/public/lib/jquery.json-2.3.min.js',
-          '@LupoDiscgolf/Resources/public/lib/jqueryUI/js/*',
-          '@LupoDiscgolf/Resources/public/lib/knockout/knockout-2.1.0.debug.js',
-          '@LupoDiscgolf/Resources/public/lib/jshashtable-2.1.js',
-          '@LupoDiscgolf/Resources/public/lib/log4javascript.js',
-          '@LupoDiscgolf/Resources/public/lib/jquery.blockUI.js',
-          )) as $url): ?>
-    <script src="<?php echo $view->escape($url) ?>"></script>
-<?php endforeach; ?>
 <?php foreach ($view['assetic']->stylesheets(
     array('@LupoDiscgolf/Resources/public/css/960.css',
           '@LupoDiscgolf/Resources/public/css/styles.css',
@@ -19,13 +9,20 @@
           )) as $url): ?>
     <link rel="stylesheet" href="<?php echo $view->escape($url) ?>" />
 <?php endforeach; ?>
-
 <?php foreach ($view['assetic']->javascripts(
-    array('@LupoDiscgolf/Resources/public/js/misc/constants.js',
-        )) as $url): ?>
+    array('@LupoDiscgolf/Resources/public/lib/jqueryUI/js/jquery-1.7.1.min.js',
+          '@LupoDiscgolf/Resources/public/lib/jqueryUI/js/jquery-ui-1.8.18.custom.min.js',
+          '@LupoDiscgolf/Resources/public/lib/jquery.json-2.3.min.js',
+          '@LupoDiscgolf/Resources/public/lib/knockout/knockout-2.1.0.debug.js',
+          '@LupoDiscgolf/Resources/public/lib/jshashtable-2.1.js',
+          '@LupoDiscgolf/Resources/public/lib/log4javascript.js',
+          '@LupoDiscgolf/Resources/public/lib/jquery.blockUI.js',
+          )) as $url): ?>
     <script src="<?php echo $view->escape($url) ?>"></script>
 <?php endforeach; ?>
-
+    <script type="text/javascript">
+var Constants = {REST_ROOT: "<?php echo $api_root ?>"};
+    </script>
 <?php foreach ($view['assetic']->javascripts(
     array('@LupoDiscgolf/Resources/public/js/misc/utils.js',
           '@LupoDiscgolf/Resources/public/js/misc/UILogger.js',
