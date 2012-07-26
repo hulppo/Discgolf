@@ -28,13 +28,13 @@ var Constants = {REST_ROOT: "<?php echo $api_root ?>"};
           '@LupoDiscgolf/Resources/public/js/misc/UILogger.js',
           '@LupoDiscgolf/Resources/public/js/misc/Logger.js',
           '@LupoDiscgolf/Resources/public/js/misc/AjaxRunner.js',
-
+/*
           '@LupoDiscgolf/Resources/public/js/dto/CourseDTO.js',
           '@LupoDiscgolf/Resources/public/js/dto/PlayerDTO.js',
           '@LupoDiscgolf/Resources/public/js/dto/RoundDTO.js',
           '@LupoDiscgolf/Resources/public/js/dto/ResultDTO.js',
           '@LupoDiscgolf/Resources/public/js/dto/HoleDTO.js',
-
+*/
           '@LupoDiscgolf/Resources/public/js/model/DomainModel.js',
           '@LupoDiscgolf/Resources/public/js/model/Course.js',
           '@LupoDiscgolf/Resources/public/js/model/Player.js',
