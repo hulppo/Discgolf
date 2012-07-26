@@ -2,6 +2,7 @@ var logr = log4javascript.getLogger('rootLogger');
 var logAppender = new log4javascript.PopUpAppender();
 var popUpLayout = new log4javascript.PatternLayout("%d{HH:mm:ss} %-5p %c - %m%n");
 logAppender.setLayout(popUpLayout);
+logAppender.setThreshold(log4javascript.Level.ERROR); // only display errors
 logr.addAppender(logAppender);
 
 var uiLog = new UILogger();
