@@ -199,7 +199,8 @@ class RoundParser implements ParsedCourseInterface,
         $innerTableStart = strpos($data, '<table', 6); // skip the outer table tag
         $courseInfo = substr($data, 0, $innerTableStart);
         $courseInfo = strip_tags($courseInfo, '<br/><br>'); // leave br for exploding
-        $courseInfoArr = explode('<br/>',$courseInfo);
+        $courseInfo = str_replace('<br/>', '<br>', $courseInfo); // standardize possible breaks
+        $courseInfoArr = explode('<br>',$courseInfo);
         foreach ($courseInfoArr as $row) {
             $info = explode("&nbsp;", $row);
             if (strpos($info[0], 'Course') !== false) {
