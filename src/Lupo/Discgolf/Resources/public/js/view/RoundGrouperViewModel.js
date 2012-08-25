@@ -18,8 +18,9 @@ function RoundGrouperViewModel(domainModel, viewController){
 	
 	self.toggleRoundGroup = function(roundGroup){
 		roundGroup.selected(!roundGroup.selected());
-		roundListViewModel.filterByRoundGroups(filterSelectedRoundGroups(self.roundGroups()));
-		powerTableViewModel.populate(playerListViewModel.getFilteredPlayers(),roundListViewModel.getFilteredRounds());
+		LOGGER.info((roundGroup.selected() ? "Enabled" : "Disabled") +  " round group " + roundGroup.id + " with " + roundGroup.rounds().length + " rounds. Enabled round groups: " +  filterSelectedRoundGroups(self.roundGroups()).length);
+		viewController.roundListViewModel.filterByRoundGroups(filterSelectedRoundGroups(self.roundGroups()));
+		viewController.powerTableViewModel.populate(viewController.playerListViewModel.getSelectedPlayers(),viewController.roundListViewModel.filteredRounds());
 	};
 	
 	self.toggleRequireAll = function(value){
@@ -34,16 +35,14 @@ function RoundGrouperViewModel(domainModel, viewController){
 	};
 	
 	self.updateRounds = function(rounds){
-		
+		LOGGER.info("Grouping " + rounds.length + " rounds under course list");
 		$.each(self.roundGroups(), function(i,roundgroup) { 
 			//RoundGrouperLogger.debug(roundgroup.rounds().length);
 			roundgroup.rounds.removeAll();
 		});
 		
 		$.each(rounds, function(i,round) { 
-			if(round.filteredByPlayers()){
 				self.addRound(round) 
-			}
 		});
 	}
 	

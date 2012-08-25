@@ -19,7 +19,7 @@ function RoundDTO(JSONData){
 	
 	self.init = function(JSONData){
 		id = JSONData.id;
-		timestamp = JSONData.timestamp;
+		timestamp = Utils.parseDate(JSONData.timestamp);
 		courseId = JSONData.course.id;
 		courseName = JSONData.course.name;
 		playerIDs = $.map(JSONData.participants, function(participant,index){ return participant.player.id; });

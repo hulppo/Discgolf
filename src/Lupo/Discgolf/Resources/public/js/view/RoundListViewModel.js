@@ -5,7 +5,11 @@ function RoundListViewModel(domainModel, viewController){
 	var domainModel = domainModel;
 	var viewController = viewController;
 	
-	self.rounds = ko.observableArray([]);
+	var allRounds = domainModel.getRounds();
+	var filteredByPlayers = [];
+	var filteredByCourses = allRounds;
+	
+	self.filteredRounds = ko.observableArray([]);
 	self.requireAllParticipants = true;
 	
 	
@@ -26,53 +30,51 @@ function RoundListViewModel(domainModel, viewController){
 		return true;
 	}
 	
-	self.setRounds = function(rounds){
-		self.augmentRounds(rounds);
-		self.rounds(rounds);
-	}
-	
-	// TODO: Not really nice to extend the data model this way. Fix.
-	self.augmentRounds = function(rounds){
-		$.each(rounds, function(index, round){ 
-			round.filteredByPlayers = ko.observable(false);
-			round.filteredByCourses = ko.observable(true);
-			round.filtered = ko.computed(function() {
-			        return round.filteredByPlayers() && round.filteredByCourses();
-			}, this);
-		});
-	};
-	
-	
-	self.getFilteredRounds = function(){
-		 var filteredRounds =  $.grep(self.rounds(), function(round){
-			 return round.filtered();
-		 });
-		 LOGGER.trace("getFilteredRounds() returning " + filteredRounds.length + " rounds.");
-		 return filteredRounds;
-	 };
-	 
 	 self.filterByPlayers = function(players){
-		 self.filterSharedRounds(self.rounds(), $.map(players, function(player,index){ return player.getId(); }));
-		 viewController.roundGrouperViewModel.updateRounds(self.rounds());
+		 self.filterSharedRounds(players);
+		 // TODO: it should not be roundlistviewmodels responsibility to do this
+		 viewController.roundGrouperViewModel.updateRounds(filteredByPlayers);
 	};
 	
 	self.filterByRoundGroups = function(roundGroups){
-		$.each(self.rounds(), function(i,round){
-			var isFiltered = (round.data.course.id == roundGroups[0].id);
-			round.filteredByCourses(isFiltered);
+		LOGGER.info("Enabling rounds for " + roundGroups.length + " courses");
+		filteredByCourses = [];
+		var courseIds = $.map(roundGroups, function(group, index){ return group.id; });
+		$.each(allRounds, function(i,round){
+			var isFiltered = Utils.contains(courseIds, function(element){ return round.getCourseId() == element; });
+			if(isFiltered) 
+				filteredByCourses.push(round);
+			LOGGER.trace("Round included " + round.getId());
 		});
-		
+		self.evaluateFiltered();
+		LOGGER.debug("Total of " + self.filteredRounds().length + " are enabled by courses");
 	};
 
-	self.filterSharedRounds = function(rounds, playerIDs){
-		LOGGER.debug("filterSharedRounds() filtering by " + rounds.length + " rounds and " + playerIDs.length + " players.");
-		$.each(rounds, function(i,round){ 
+	self.filterSharedRounds = function(players){
+		LOGGER.debug("filterSharedRounds() filtering by  " + players.length + " players.");
+		filteredByPlayers = [];
+		var playerIDs = $.map(players, function(player,index){ return player.getId(); })
+		$.each(allRounds, function(i,round){ 
 			var isFiltered = round.hasAsParticipants(playerIDs, self.requireAllParticipants);
-			// TODO: will cause knockout binding evaluation. should we rather do these in one chunk and then refresh manually.
-			round.filteredByPlayers(isFiltered);
-			LOGGER.trace("filterSharedRounds() Setting round " + round.getId() + " filteredByPlayers: " + isFiltered);
+			if(isFiltered){
+				filteredByPlayers.push(round);
+				LOGGER.trace("filterSharedRounds() Including round " + round.getId());
+			}
 		});
+		 self.evaluateFiltered();
+	};
+	
+	// TODO: this is not optimized and is very slow. If becomes a problem use something like intersecting arrays of IDs here
+	self.evaluateFiltered = function(){
+		var filtered = [];
+		LOGGER.info("Evaluating intersection of " + filteredByPlayers.length + " filtered by players and " + filteredByCourses.length + " filtered by courses");
+		$.each(filteredByPlayers, function(index, round){
+			if(Utils.contains(filteredByCourses, function(element){ return round.getId() == element.getId(); }))
+				filtered.push(round);
+		});
+		LOGGER.info("Including " + filtered.length + " rounds selected by players and courses");
+		self.filteredRounds(filtered);
+		viewController.parGraphViewModel.update();
 	};
 
-	self.setRounds(domainModel.getRounds());
 }

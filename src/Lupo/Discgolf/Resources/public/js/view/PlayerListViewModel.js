@@ -38,7 +38,7 @@ function PlayerListViewModel(domainModel, viewController){
 	 
 	self.update = function(){
 		viewController.roundListViewModel.filterByPlayers(self.getSelectedPlayers());
-		viewController.powerTableViewModel.populate(viewController.playerListViewModel.getSelectedPlayers(),viewController.roundListViewModel.getFilteredRounds());
+		viewController.powerTableViewModel.populate(viewController.playerListViewModel.getSelectedPlayers(),viewController.roundListViewModel.filteredRounds());
 	};
 	
 	self.setPlayers(domainModel.getPlayers());

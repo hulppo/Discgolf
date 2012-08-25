@@ -20,6 +20,11 @@ h3.routelistHeader {
 	margin-bottom: 8px;
 }
 
+.centeredContainer {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 header {
 
 }

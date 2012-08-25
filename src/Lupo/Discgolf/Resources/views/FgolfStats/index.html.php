@@ -17,6 +17,7 @@
           '@LupoDiscgolf/Resources/public/lib/jshashtable-2.1.js',
           '@LupoDiscgolf/Resources/public/lib/log4javascript.js',
           '@LupoDiscgolf/Resources/public/lib/jquery.blockUI.js',
+          '@LupoDiscgolf/Resources/public/lib/flot/jquery.flot.js',
           )) as $url): ?>
     <script src="<?php echo $view->escape($url) ?>"></script>
 <?php endforeach; ?>
@@ -51,6 +52,7 @@ var Constants = {REST_ROOT: "<?php echo $api_root ?>"};
           '@LupoDiscgolf/Resources/public/js/view/PlayerListViewModel.js',
           '@LupoDiscgolf/Resources/public/js/view/RoundListViewModel.js',
           '@LupoDiscgolf/Resources/public/js/view/RoundGrouperViewModel.js',
+          '@LupoDiscgolf/Resources/public/js/view/ParGraphViewModel.js',
 
           '@LupoDiscgolf/Resources/public/js/stats/PowerTable.js',
           '@LupoDiscgolf/Resources/public/js/init.js',
@@ -177,11 +179,10 @@ var Constants = {REST_ROOT: "<?php echo $api_root ?>"};
 
             <div class="grid_5" id="roundList">
                 <div id="filteredRoundList">
-                    <div data-bind="visible: getFilteredRounds().length != 0" style="display: none">
+					<div data-bind="visible: filteredRounds().length != 0" style="display: none">
                         <h3>Rounds included:</h3>
                         <table class="roundlist">
-                            <tbody data-bind="foreach: rounds">
-                                <!-- ko if: filtered() -->
+							<tbody data-bind="foreach: filteredRounds">
                                     <tr data-bind="click: $parent.showScoreCard">
                                         <td>
                                             <img src="img/pixelbox/GIF/026.gif"/>
@@ -193,7 +194,6 @@ var Constants = {REST_ROOT: "<?php echo $api_root ?>"};
                                             <span data-bind="text: getTimestamp()"></span>
                                         </td>
                                     </tr>
-                                <!-- /ko -->
                             </tbody>
                         </table>
                     </div>
@@ -201,8 +201,9 @@ var Constants = {REST_ROOT: "<?php echo $api_root ?>"};
             </div>
 
             <div class="container_12">
-                <div class="grid_12" id="powerTable">
-                    <table data-bind="visible: results().length > 0" class="ui-widget ui-widget-content ui-corner-all ui-theme">
+				<div class="grid_12" id="powerTable" class="centeredContainer" style="display: none" data-bind="visible: results().length > 0">
+					<div class="centeredContainer"><h3 style="text-align: center;">Power table between selected players</h3></div>
+					<table   class="ui-widget ui-widget-content ui-corner-all ui-theme centeredContainer" >
                         <thead>
                             <tr>
                                 <th data-bind="click: toggleViewMode">
@@ -244,6 +245,16 @@ var Constants = {REST_ROOT: "<?php echo $api_root ?>"};
                 </div>
             </div>
 
+			<div class="container_12">
+				<br/>
+				<div class="grid_12" id="parGraph" >
+					<div data-bind="visible: isReady" style="display: none">
+						<div class="centeredContainer"><h3 style="text-align: center;">Difference to PAR over time</h3></div>
+						<div id="distanceToParOverTime" style="width: 600px; height: 300px;" class="centeredContainer">
+						</div>
+					</div>
+				</div>
+			</div>
 
         </div>
 
@@ -264,6 +275,7 @@ var Constants = {REST_ROOT: "<?php echo $api_root ?>"};
                                 <a target="_blank" href="http://jquery.com/"><img class="powered" alt="jquery" src="./img/powered/jquery.gif"></a>
                                 <a target="_blank" href="http://jqueryui.com/"><img class="powered" alt="jqueryUI" src="./img/powered/jqueryUI.gif"></a>
                                 <a target="_blank" href="http://knockoutjs.com/"><img class="powered" alt="knockout" src="./img/powered/ko-logo.png"></a>
+								<a target="_blank" href="http://code.google.com/p/flot/" class="powered"><img class="powered" alt="knockout" src="./img/powered/flot.png"></a>
                             </td>
                         </tr>
                     </table>

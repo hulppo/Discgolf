@@ -35,3 +35,17 @@ Utils.findAndRequireOne = function(array, comparator){
 	
 	return filtered[0];
 };
+
+Utils.parseDate = function(timestamp){
+	// Timstamp is in format 2011-05-28T17:28:00+0300
+	var day = (timestamp.split("T")[0]).split("-");
+	var time = (timestamp.split("T")[1]).split(":");
+	var date = new Date();
+	
+	date.setFullYear(day[0],(day[1]-1), (day[2]-1));
+	date.setHours(time[0]);
+	date.setMinutes(time[1]);
+	date.setSeconds(0);
+	date.setMilliseconds(0);
+	return date;
+};

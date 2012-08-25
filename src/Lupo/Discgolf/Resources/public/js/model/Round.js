@@ -11,12 +11,6 @@ function Round(roundDTO){
 	self.getTimestamp = function(){ return roundDTO.getTimestamp(); };
 	self.getCourseId = function(){ return roundDTO.getCourseId(); };
 	
-	// TODO: augment these instead of setting here
-	this.filteredByPlayers = ko.observable(false);
-	this.filteredByCourses = ko.observable(true);
-	this.filtered = ko.computed(function() {
-	        return this.filteredByPlayers() && this.filteredByCourses();
-	}, this);
 	
 	self.powers = function(player, compareTo){
 		var playerTotal = self.getPlayerTotal(player.getId());

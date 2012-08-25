@@ -1,4 +1,4 @@
-
+// TODO: Move to own viewmodel file
 function PowerTableViewModel(domainModel){
 	var self = this;
 	var LOGGER = new Logger('PowerTableViewModel',log4javascript.Level.TRACE);
@@ -48,6 +48,7 @@ function PowerRecord(){
 function PowerTable(){
 	var self = this;
 	var table = new Hashtable();
+	var LOGGER = new Logger('PowerTable',log4javascript.Level.TRACE);
 	
 	// TODO: powers are now calculated twice for each player pair A vs B and B vs A. Should re-use the earlier calculation A vs B.
 	self.populate = function(players, rounds){
