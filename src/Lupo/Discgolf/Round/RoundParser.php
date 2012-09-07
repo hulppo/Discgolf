@@ -291,10 +291,10 @@ class RoundParser implements ParsedCourseInterface,
      */
     private function decodeAndToUtf8($value)
     {
-        $value = html_entity_decode($value, null, $this->charset);
         if ($this->charset != '' && strtolower($this->charset) != 'utf-8') {
             $value = iconv($this->charset, 'utf-8', $value);
         }
+        $value = html_entity_decode($value, null, 'utf-8');
         return $value;
     }
 
