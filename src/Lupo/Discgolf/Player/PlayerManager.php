@@ -35,9 +35,9 @@ class PlayerManager
         $qb = $this->em->createQueryBuilder();
         $qb->select('p')->from('Lupo\Discgolf\Entity\Player', 'p');
         $qb->join('p.altNames', 'pn');
-        $qb->where('pn.altName = :name');
+        $qb->where('UPPER(pn.altName) = :name'); // in case sensitive name search
         $qb->orderBy('p.id', 'DESC');
-        $qb->setParameter('name', $name);
+        $qb->setParameter('name', mb_strtoupper($name));
         $players = $qb->getQuery()->getResult();
         return $players;
     }

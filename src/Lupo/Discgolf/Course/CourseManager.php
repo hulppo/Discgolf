@@ -38,9 +38,9 @@ class CourseManager
         $qb = $this->em->createQueryBuilder();
         $qb->select('c')->from('Lupo\Discgolf\Entity\Course', 'c');
         $qb->join('c.altNames', 'cn');
-        $qb->where('cn.altName = :name');
+        $qb->where('UPPER(cn.altName) = :name'); // in case sensitive search
         $qb->orderBy('c.id', 'DESC');
-        $qb->setParameter('name', $name);
+        $qb->setParameter('name', mb_strtoupper($name));
         $courses = $qb->getQuery()->getResult();
         return $courses;
     }
