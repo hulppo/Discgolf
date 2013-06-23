@@ -56,7 +56,11 @@ class RoundManager
         }
 
         $round = new Round();
-        $round->setTimestamp(new \DateTime($parsedRound->getRoundStart()));
+        if (null === $parsedRound->getRoundStart()) {
+            $round->setTimestamp(new \DateTime()); // default to current time if no time set
+        } else {
+            $round->setTimestamp(new \DateTime($parsedRound->getRoundStart()));
+        }
         $descr = '';
         foreach ($parsedRound->getRoundInformation() as $key => $info) {
             $descr .= "$key $info\n";

@@ -206,8 +206,11 @@ class RoundParser implements ParsedCourseInterface,
             if (strpos($info[0], 'Course') !== false) {
                 $this->courseName = $this->decodeAndToUtf8($info[1]);
             } elseif (strpos($info[0], 'Start Time') !== false) {
-                $this->timestamp = date('Y-m-d H:i:s',
-                    strtotime(str_replace(array(',', '/'), array('', '-'), $info[1])));
+                $playTime = strtotime(str_replace(array(',', '/'), array('', '-'), $info[1]));
+                if (false === $playTime) { // no proper time found, default to current time 
+                    $playTime = time();
+                }
+                $this->timestamp = date('Y-m-d H:i:s', $playTime);
             } else {
                 $this->courseInfo[$info[0]] = $this->decodeAndToUtf8($info[1]);
             }
